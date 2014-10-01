@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+      <meta name="author"             content="Eleanor J. Downie" />
+   <title>
+      Space: The Final Frontier
+   </title>
+   <style> 
+      .title {font: sans-serif; font-size: xx-large; font-weight: bold;}
+   </style>
+      
+   <script type="text/javascript">
+      
+      function  goNorth(){
+         var currLoc = 0;                
+         if(currLoc===3){
+           currLoc=0;
+           dispmsg("You are back at the space station.") 
+         } else{
+           if(currLoc===0){
+             currLoc=1;
+             dispmsg("You have traveled to a planet of ice.")
+           } else{
+               dispmsg("This part of space is not explorable.")
+             }
+           }
+      }   
+   </script>
+   </head>
+   <body>
+       <p class="title">
+          Space: The Final Frontier
+       </p>
+       <br>
+       <textarea rows="10" cols="40" id="taAnswer">You are in a space station ready 
+to explore the cosmos, which direction whould you like to go?
+       </textarea>
+       
+       <br>
+       <input type="button"
+              value="North"
+              onclick="goNorth();" />
+  
+       <input type="button"
+              value="South"
+              onclick="goSouth()" />
+       
+       <input type="button"
+              value="East"
+              onclick="goEast()" />
+
+       <input type="button"
+              value="West"
+              onclick="goWest()" />
+
+       <br>
+       <br>
+       <a href="mailto: eleanor.downie1@marist.edu">Email Me Here!</a>
+                
+   </body>
+</html>
