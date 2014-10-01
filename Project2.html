@@ -17,22 +17,43 @@
       var currLoc = 0;  
       var score = 0; 
       
+      //Variables for scorekeeping
+      var visited_0 = false;
+      var visited_1 = false;
+      var visited_2 = false;
+      var visited_3 = false;
+      var visited_4 = false;
+
+      function completeScore(){
+         var targetScoreArea = document.getElementById("scoreArea");
+         targetScoreArea.value = score;
+      }
+
       function dispmsg(msg) {
          var target = document.getElementById("taMain");
-         target.value = msg;
-         target.value= "score" + score + "\n" + target.value;
+         target.value += "\n" + msg + "\n\n";
       }
 
       function goNorth(){                
          if(currLoc===3){
             currLoc=0;
+              if(visited_0===false){
+                visited_0 = true;
+                score += 5;
+                completeScore();
+                }
             dispmsg("You are back at the space station.");
          } else {
            if(currLoc===0) {
               currLoc=1;
-              dispmsg("You have traveled to a planet of ice.");
+              if(visited_1===false){
+                visited_1 = true;
+                score += 5;
+                completeScore();
+                }
+              dispmsg("You have traveled to an unknown planet of ice. You get out of the space ship only to discover that the planet is uninhabitable.\n");
            } else {
-              dispmsg("This part of space is not explorable.");
+              dispmsg("This part of space is hostile territory, leave before they shoot you.");
            }
          }
       }   
@@ -44,9 +65,14 @@
          } else {
            if(currLoc===0) {
               currLoc=3;
-              dispmsg("You have traveled to a planet of fire.");
+              if(visited_3===false){
+                visited_3 = true;
+                score += 5;
+                completeScore();
+                }
+              dispmsg("You have voyaged to an unkown planet of fire. The beings on this planet are dangerous and angry, get out quick! Before they ignite you and your spaceship. ");
            } else {
-              dispmsg("This part of space is not explorable.");
+              dispmsg("This part of space is not yet explorable.");
            }
          }
       }   
@@ -58,9 +84,14 @@
          } else {
            if(currLoc===0) {
               currLoc=4;
-              dispmsg("You have traveled to a jungle planet .");
+              if(visited_4===false){
+                visited_4 = true;
+                score += 5;
+                completeScore();
+                }
+              dispmsg("You have traveled to the jungle planet of Pluvia Silva. The people there are friendly and offer for you to stay there forever...");
            } else {
-              dispmsg("This part of space is not explorable.");
+              dispmsg("This part of space is hostile territory, leave before they shoot you.");
            }
          }
       }  
@@ -72,9 +103,14 @@
          } else {
            if(currLoc===0) {
               currLoc=2;
-              dispmsg("You have traveled to a planet of water.");
+              if(visited_2===false){
+                visited_2 = true;
+                score += 5;
+                completeScore();
+                }
+              dispmsg("You have treked to an unexplored planet covered in water. There seems to be no intelligent life here, only creatures interested in you and your ship. Sadly their curiosity is harmful, leave beore any damage occurs!");
            } else {
-              dispmsg("This part of space is not explorable.");
+              dispmsg("This part of space is not yet explorable.");
            }
          }
       }    
@@ -85,8 +121,8 @@
           Space: The Final Frontier
        </p>
        <br>
-       <textarea rows="10" cols="40" id="taMain">You are in a space station ready 
-to explore the cosmos, which direction whould you like to go?
+       <textarea rows="20" cols="60" id="taMain">You are in a space station ready 
+to explore the cosmos, where would you like to go?
        </textarea>
        
        <br>
@@ -105,6 +141,11 @@ to explore the cosmos, which direction whould you like to go?
        <input type="button"
               value="West"
               onclick="goWest()" />
+
+       <br>
+       <br>
+       Score:
+       <textarea rows="1" cols="5" id="scoreArea"></textarea>
 
        <br>
        <br>
