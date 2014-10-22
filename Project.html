@@ -46,6 +46,7 @@
                 look();
              } else {
               navigationError();
+             }
            }
          }
       }
@@ -64,9 +65,10 @@
                 look();
              } else {
               navigationError();
+             }
            }
          }
-      } 
+      }
 
       function goEast(){                
          if(currLoc===2){
@@ -82,6 +84,7 @@
                 look();
              } else {
               navigationError();
+             }
            }
          }
       }
@@ -100,6 +103,7 @@
                 look();
              } else {
               navigationError();
+             }
            }
          }
       }
@@ -127,7 +131,78 @@
          dispmsg(desc);
       }
 
-
+      function btnGo_click() {
+         var userDirection = document.getElementById("txtCommand").value;
+         var message = "";
+         //North Commands
+         if ((currLoc===0) && (userDirection==="north")){
+             currLoc = 1;
+             look();
+         } else {
+           if ((currLoc===3) && (userDirection==="north")){
+               currLoc = 0;
+               look();
+           } else {
+             if((currLoc===5) && (userDirection==="north")){
+                currLoc = 4;
+                look();
+             } else {
+               message= "That is an invalid command, you may only use, north, south east, and west."
+             }
+           }
+         }
+         ///South commands
+         if ((currLoc===1) && (userDirection==="south")){
+             currLoc = 0;
+             look();
+         } else {
+           if ((currLoc===0) && (userDirection==="south")){
+               currLoc = 3;
+               look();
+           } else {
+             if((currLoc===4) && (userDirection==="south")){
+                currLoc = 5;
+                look();
+             } else {
+               message= "That is an invalid command, you may only use, north, south east, and west."
+             }
+           }
+         }
+         //East commands
+         if ((currLoc===2) && (userDirection==="east")){
+             currLoc = 0;
+             look();
+         } else {
+           if ((currLoc===0) && (userDirection==="east")){
+               currLoc = 4;
+               look();
+           } else {
+             if((currLoc===3) && (userDirection==="east")){
+                currLoc = 5;
+                look();
+             } else {
+               message= "That is an invalid command, you may only use, north, south east, and west."
+             }
+           }
+         }
+         //West Commands
+         if ((currLoc===4) && (userDirection==="west")){
+             currLoc = 0;
+             look();
+         } else {
+           if ((currLoc===0) && (userDirection==="west")){
+               currLoc = 2;
+               look();
+           } else {
+             if((currLoc===5) && (userDirection==="west")){
+                currLoc = 3;
+                look();
+             } else {
+               message= "That is an invalid command, you may only use, north, south east, and west."
+             }
+           }
+         }
+      }
 
 
       function navigationError(){
