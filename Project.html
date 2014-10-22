@@ -24,6 +24,7 @@
       var visited_2 = false;
       var visited_3 = false;
       var visited_4 = false;
+      var visited_5 = false;
 
       //Initialization
       function init(){
@@ -36,10 +37,14 @@
             currLoc=0;
             look();
          } else {
-           if(currLoc ===0){
+           if(currLoc===0){
               currLoc = 1;
               look();
            } else {
+             if(currLoc===5){
+                currLoc = 4;
+                look();
+             } else {
               navigationError();
            }
          }
@@ -50,10 +55,14 @@
             currLoc=0;
             look();
          } else {
-           if(currLoc ===0){
+           if(currLoc===0){
               currLoc = 3;
               look();
            } else {
+             if(currLoc===4){
+                currLoc = 5;
+                look();
+             } else {
               navigationError();
            }
          }
@@ -64,10 +73,14 @@
             currLoc=0;
             look();
          } else {
-           if(currLoc ===0){
+           if(currLoc===0){
               currLoc = 4;
               look();
            } else {
+             if(currLoc===3){
+                currLoc = 5;
+                look();
+             } else {
               navigationError();
            }
          }
@@ -78,14 +91,19 @@
             currLoc=0;
             look();
          } else {
-           if(currLoc ===0){
+           if(currLoc===0){
               currLoc = 2;
               look();
            } else {
+             if(currLoc===5){
+                currLoc = 3;
+                look();
+             } else {
               navigationError();
            }
          }
       }
+
 
       //Story Functions
       function look() { 
@@ -101,14 +119,18 @@
                     break;
             case 4: desc = "You have traveled to the jungle planet of Pluvia Silva. The people there are friendly and offer for you to stay there forever...";
                     break;
+            case 5: desc = "YOU HAVE GONE TO THE PLANET ELLIE HASNT CREATED YET!!";
+                    break;
             default: desc = "This part of space is not yet explorable.";
          }
          completeScore();
          dispmsg(desc);
       }
 
-      function navagationError(){
-         //FIX THE ERROR!!!!!!
+
+
+
+      function navigationError(){
          dispmsg("This part of space is not yet explorable.");
       }
 
@@ -130,6 +152,9 @@
          } else if ((! visited_4) && (currLoc === 4)) {
              score = score + 5;
              visited_4 = true;
+         } else if ((! visited_5) && (currLoc ===5)) {
+             score = score + 5;
+             visited_5 = true;
          }
       }
 
