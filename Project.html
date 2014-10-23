@@ -14,11 +14,11 @@
       .title {font: sans-serif; font-size: xx-large; font-weight: bold;}
    </style>   
    <script>
-      //global variables
+      //Global Variables
       var currLoc = 0;  
       var score = 0; 
       
-      //Variables for scorekeeping
+      //Variables for Scorekeeping
       var visited_0 = false;
       var visited_1 = false;
       var visited_2 = false;
@@ -31,7 +31,7 @@
          look();
       }
 
-      //Directional functions
+      //Directional Functions
       function goNorth(){                
          if(currLoc===3){
             currLoc=0;
@@ -108,100 +108,45 @@
          }
       }
 
+     //Commandbox Directional Functions
+     function btnGo_click(){
+        var userDirection = document.getElementById("txtCommand").value;
+        userDirection = userDirection.toUpperCase();
+        switch(userDirection){
+        case 'N': goNorth();
+             break;
+        case 'S': goSouth();
+             break;
+        case 'E': goEast();
+             break;
+        case 'W': goWest();
+             break;  
+        case 'Help': dispmsg("You cannot use that command. You may only use: N, S, E, or W.");
+             break;
+        default: dispmsg("You cannot use that command. You may only use: N, S, E, or W.");
+        }   
+      }
 
       //Story Functions
-      function look() { 
+      function look(){ 
          var desc = "";
          switch(currLoc) {
             case 0: desc = "You are back in the space station.";
                     break;
             case 1: desc = "You have traveled to an unknown planet of ice. You get out of the space ship only to discover that the planet is uninhabitable.";
                     break;
-            case 2: desc = "You have treked to an unexplored planet covered in water. There seems to be no intelligent life here, only creatures interested in you and your ship. Sadly their curiosity is harmful, leave beore any damage occurs!";
+            case 2: desc = "You have treked to an unexplored planet covered in water. There seems to be no intelligent life here, only creatures interested in you and your ship. Sadly their curiosity is harmful, leave before any damage occurs!";
                     break;
             case 3: desc = "You have voyaged to an unkown planet of fire. The beings on this planet are dangerous and angry, get out quick! Before they ignite you and your spaceship. ";
                     break;
             case 4: desc = "You have traveled to the jungle planet of Pluvia Silva. The people there are friendly and offer for you to stay there forever...";
                     break;
-            case 5: desc = "YOU HAVE GONE TO THE PLANET ELLIE HASNT CREATED YET!!";
+            case 5: desc = "You have soared to the planet of nebulous. This planet is known for having little to no land mass, only clouds of diffenrent structures. Sadly you cannot land your ship and must move on.";
                     break;
             default: desc = "This part of space is not yet explorable.";
          }
          completeScore();
          dispmsg(desc);
-      }
-
-      function btnGo_click() {
-         var userDirection = document.getElementById("txtCommand").value;
-         var message = "";
-         //North Commands
-         if ((currLoc===0) && (userDirection==="north")){
-             currLoc = 1;
-             look();
-         } else {
-           if ((currLoc===3) && (userDirection==="north")){
-               currLoc = 0;
-               look();
-           } else {
-             if((currLoc===5) && (userDirection==="north")){
-                currLoc = 4;
-                look();
-             } else {
-               message= "That is an invalid command, you may only use, north, south east, and west."
-             }
-           }
-         }
-         ///South commands
-         if ((currLoc===1) && (userDirection==="south")){
-             currLoc = 0;
-             look();
-         } else {
-           if ((currLoc===0) && (userDirection==="south")){
-               currLoc = 3;
-               look();
-           } else {
-             if((currLoc===4) && (userDirection==="south")){
-                currLoc = 5;
-                look();
-             } else {
-               message= "That is an invalid command, you may only use, north, south east, and west."
-             }
-           }
-         }
-         //East commands
-         if ((currLoc===2) && (userDirection==="east")){
-             currLoc = 0;
-             look();
-         } else {
-           if ((currLoc===0) && (userDirection==="east")){
-               currLoc = 4;
-               look();
-           } else {
-             if((currLoc===3) && (userDirection==="east")){
-                currLoc = 5;
-                look();
-             } else {
-               message= "That is an invalid command, you may only use, north, south east, and west."
-             }
-           }
-         }
-         //West Commands
-         if ((currLoc===4) && (userDirection==="west")){
-             currLoc = 0;
-             look();
-         } else {
-           if ((currLoc===0) && (userDirection==="west")){
-               currLoc = 2;
-               look();
-           } else {
-             if((currLoc===5) && (userDirection==="west")){
-                currLoc = 3;
-                look();
-             } else {
-               message= "That is an invalid command, you may only use, north, south east, and west."
-             }
-           }
-         }
       }
 
 
@@ -234,10 +179,10 @@
       }
 
       //Utility functions
-      function dispmsg(msg) {
+      function dispmsg(msg){
          var target = document.getElementById("taMain");
          target.value = msg +"\n\n" + target.value;
-      }
+      }  
 
    </script>
    </head>
@@ -260,7 +205,7 @@
 
        <br>
        <br>
-       <input type="button"
+       <input type="button" 
               value="North"
               onclick="goNorth();" />
   
