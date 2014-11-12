@@ -172,11 +172,12 @@ function btnGo_click(){
            break;
       case 'W': goWest();
            break;  
-      case 'Help': dispmsg("You cannot use that command. You may only use: N, S, E, or W.");
+      case 'HELP': dispmsg("You may use the directional buttons below to move, or type N, S, E, or W into the command bar.");
            break;
       default: dispmsg("You cannot use that command. You may only use: N, S, E, or W.");
    }   
 }
+
 
 //Story Functions
 function look(){ 
@@ -199,7 +200,7 @@ function look(){
 }
 
 function spaceStation(){
-   var desc = "You are back in the space station.";
+   var desc = "You have taken your ship to the space station.";
    completeScore();
    dispmsg(desc);
 }
@@ -217,7 +218,7 @@ function waterPlanet(){
 } 
 
 function firePlanet(){
-   var desc = "You have voyaged to the fire planet called Hell. The beings on this planet are dangerous and angry, get out quick! Before they ignite you and your spaceship. ";
+   var desc = "You have voyaged to the fire planet called Hell. The beings on this planet are dangerous and angry, get the hell out of dodge! Before they ignite you and your spaceship. ";
    completeScore();
    dispmsg(desc);
 }
@@ -229,7 +230,7 @@ function junglePlanet(){
 }
   
 function cloudPlanet(){
-   var desc = "You have soared to the planet of nebulous. This planet is known for having little to no land mass, only clouds of diffenrent structures. Sadly you cannot land your ship and must move on.";
+   var desc = "You have soared to the planet of Nebulous. This planet is known for having little to no land mass, only clouds of diffenrent structures. Sadly you cannot land your ship and must move on.";
    completeScore();
    dispmsg(desc);
 }
@@ -321,3 +322,9 @@ function dispmsg(msg){
    var target = document.getElementById("taMain");
    target.value = msg +"\n\n" + target.value;
 }  
+
+function txtCommand_keyPress(keyboardEvent){
+   if (keyboardEvent.which === 13) {
+      btnGo_click();
+   }
+}

@@ -15,49 +15,61 @@
    </style>   
    <script type="text/javascript" src="Game5.js"></script>
    </head>
-   <body>
-       <p class="title">
-          Space: The Final Frontier
-       </p>
-       <br>
-       <textarea rows="20" cols="60" id="taMain">You are in a space station ready to explore the cosmos, where would you like to go?</textarea>
+   <body onload="init();">
+       <table>
+          <tr>
+             <td>
+                <h1 class="title">
+                   Space: The Final Frontier
+                </h1>
+                <br>
+                <p>
+                   You are in a space station ready to explore the cosmos, where would you like to go?
+                </p>
+                <br>
+                <textarea rows="20" cols="60" id="taMain"></textarea>
        
-       <br>
-       <br>
-       <input type="text"
-              id = "txtCommand"
-              name="txtCommand">
+                <br>
+                <br>
+                <input type="text"
+                       id = "txtCommand"
+                       name="txtCommand"
+                       onkeypress="txtCommand_keyPress(event);">
        
-       <input type="button"
-              value="Go"
-              onclick="btnGo_click();" />
+                <input type="button"
+                       value="Go"
+                       onclick="btnGo_click();" />
 
-       <br>
-       <br>
-       <input type="button" 
-              value="North"
-              onclick="goNorth();" />
+                <br>
+                <br>
+                <input type="button" 
+                       value="North"
+                       onclick="goNorth();" />
   
-       <input type="button"
-              value="South"
-              onclick="goSouth()" />
+                <input type="button"
+                       value="South"
+                       onclick="goSouth()" />
        
-       <input type="button"
-              value="East"
-              onclick="goEast()" />
+                <input type="button"
+                       value="East"
+                       onclick="goEast()" />
 
-       <input type="button"
-              value="West"
-              onclick="goWest()" />
+                <input type="button"
+                       value="West"
+                       onclick="goWest()" />
 
-       <br>
-       <br>
-       Score:
-       <textarea rows="1" cols="5" id="scoreArea"></textarea>
-
-       <br>
-       <br>
-       <a href="mailto:eleanor.downie1@marist.edu">Email Me Here!</a>
-                
+                <br>
+                <br>
+                Score:
+                <textarea rows="1" cols="5" id="scoreArea"></textarea>
+                <br>
+                <br>
+                <a href="mailto:eleanor.downie1@marist.edu">Email Me Here!</a>
+             </td>
+             <td>
+                <img src="GameMap.jpg" alt="Map" height="650" width="650">
+             </td>
+          </tr>
+       </table>       
    </body>
 </html>
