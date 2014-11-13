@@ -13,7 +13,386 @@
    <style> 
       .title {font: sans-serif; font-size: xx-large; font-weight: bold;}
    </style>   
-   <script type="text/javascript" src="Game5.js"></script>
+   <script type="text/javascript" src="GameLocations.js"></script>
+   <script type="text/javascript">
+	   //Global Variables
+	   var currLoc = 0;  
+	   var score = 0; 
+		  
+	   //Variables for Scorekeeping
+	   var visited_0  = false;
+	   var visited_1  = false;
+	   var visited_2  = false;
+	   var visited_3  = false;
+	   var visited_4  = false;
+	   var visited_5  = false;
+	   var visited_6  = false;
+	   var visited_7  = false;
+	   var visited_8  = false;
+	   var visited_9  = false;
+	   var visited_10 = false;
+	   var visited_11 = false;
+	   var taken_gravityDevice = false;
+	   var taken_shield = false;
+	   var taken_phaser = false;
+	   var inventoryList ="Inventory:\n";
+
+	   //Initialization
+	   function init(){
+	      look();
+	   }
+
+	   //Directional Functions
+	   function goNorth(){ 
+	      switch(currLoc){
+		     case 3:
+			    currLoc=0;
+			    look();
+			    break;
+		     case 0:
+			    currLoc=1;
+			    look();
+			    break;
+		     case 5:
+			    currLoc=4;
+			    look();
+			    break;
+		     case 1:
+			    currLoc=6;
+			    look();
+			    break;
+		     case 8:
+			    currLoc=9;
+			    look();
+			    break;
+		     case 11:
+			    currLoc=10;
+			    look();
+			    break;
+		     default:
+			    navigationError();
+	      }
+	     buttonDisable();
+	   }
+
+				  
+	   function goSouth(){                
+	      switch(currLoc){
+		     case 1:
+			    currLoc=0;
+			    look();
+			    break;
+		     case 0:
+			    currLoc=3;
+			    look();
+			    break;
+		     case 4:
+			    currLoc=5;
+			    look();
+			    break;
+		     case 6:
+			    currLoc=1;
+			    look();
+			    break;
+		     case 9:
+			    currLoc=8;
+			    look();
+			    break;
+		     case 10:
+			    currLoc=11;
+			    look();
+			    break;
+		     default:
+			    navigationError();
+	      }
+	     buttonDisable();
+	   }
+
+
+	   function goEast(){                
+	      switch(currLoc){
+		     case 2:
+			    currLoc=0;
+			    look();
+			    break;
+		     case 0:
+			    currLoc=4;
+			    look();
+			    break;
+		     case 3:
+			    currLoc=5;
+			    look();
+			    break;
+		     case 7:
+			    currLoc=6;
+			    look();
+			    break;
+		     case 6:
+			    currLoc=8;
+			    look();
+			    break;
+		     case 8:
+			    currLoc=10;
+			    look();
+			    break;
+		     default:
+			    navigationError();
+	      }
+	     buttonDisable();
+	   }  
+
+
+	   function goWest(){                
+	      switch(currLoc){
+		     case 4:
+			    currLoc=0;
+			    look();
+			    break;
+		     case 0:
+			    currLoc=2;
+			    look();
+			    break;
+		     case 5:
+			    currLoc=3;
+			    look();
+			    break;
+		     case 10:
+			    currLoc=8;
+			    look();
+			    break;
+		     case 8:
+			    currLoc=6;
+			    look();
+			    break;
+		     case 6:
+			    currLoc=7;
+			    look();
+			    break;
+		     default:
+			    navigationError();
+	      }
+	     buttonDisable();
+	   }  
+	  
+
+	   //Commandbox Directional Functions
+	   function btnGo_click(){
+	      var userDirection = document.getElementById("txtCommand").value;
+	      userDirection = userDirection.trim();
+	      userDirection = userDirection.toUpperCase();
+	      switch(userDirection){
+		     case 'N': goNorth();
+			      break;
+		     case 'S': goSouth();
+			      break;
+	   	     case 'E': goEast();
+			      break;
+		     case 'W': goWest();
+			      break;  
+	   	     case 'HELP': dispmsg("You may use the directional buttons below to move, or type N, S, E, or W into the command bar.");
+			      break;
+		     case 'TAKE': takeItem();
+			      break;
+		     case 'INVENTORY': dispmsg(inventoryList);
+			      break;
+		     default: dispmsg("You cannot use that command. You may only use: N, S, E, or W.");
+	      }   
+	   }
+
+
+	   //Story Functions
+	   function look(){ 
+	      var desc = "";
+	      switch(currLoc) {
+		     case 0:  desc  = spaceStation();  break;
+		     case 1:  desc  = icePlanet();     break;
+		     case 2:  desc  = waterPlanet();   break;
+		     case 3:  desc  = firePlanet();    break;
+		     case 4:  desc  = junglePlanet();  break;
+		     case 5:  desc  = cloudPlanet();   break;
+		     case 6:  desc  = diamondPlanet(); break;
+		     case 7:  desc  = desertPlanet();  break;
+		     case 8:  desc  = asteroidBelt();  break;
+		     case 9:  desc  = metalPlanet();   break;
+		     case 10: desc  = gravityPlanet(); break;
+		     case 11: desc  = earthPlanet();   break; 
+		     default: desc  = "This part of space is not yet explorable.";
+	      }
+	   }
+
+
+	   function navigationError(){
+	      dispmsg("This part of space is not yet explorable.");
+	   }
+
+
+	   function completeScore(){
+	      var targetScoreArea = document.getElementById("scoreArea");
+	      targetScoreArea.value = score;
+	      if ((! visited_0) && (currLoc === 0)){
+		      score = score + 5;
+		      visited_0 = true;
+	      } else if ((! visited_1) && (currLoc === 1)) {
+		      score = score + 5;
+		      visited_1 = true;
+	      } else if ((! visited_2) && (currLoc === 2)) {
+		      score = score + 5;
+		      visited_2 = true;
+	      } else if ((! visited_3) && (currLoc === 3)) {
+		      score = score + 5;
+		      visited_3 = true;
+	      } else if ((! visited_4) && (currLoc === 4)) {
+		      score = score + 5;
+		      visited_4 = true;
+	      } else if ((! visited_5) && (currLoc === 5)) {
+		      score = score + 5;
+		      visited_5 = true;
+	      } else if ((! visited_6) && (currLoc === 6)) {
+		      score = score + 5;
+		      visited_6 = true;
+	      } else if ((! visited_7) && (currLoc === 7)) {
+		      score = score + 5;
+		      visited_7 = true;
+	      } else if ((! visited_8) && (currLoc === 8)) {
+		      score = score + 5;
+		      visited_8 = true;
+	      } else if ((! visited_9) && (currLoc === 9)) {
+		      score = score + 5;
+		      visited_9 = true;
+	      } else if ((! visited_10) && (currLoc === 10)) {
+		      score = score + 5;
+		      visited_10 = true;
+	      } else if ((! visited_11) && (currLoc === 11)) {
+		      score = score + 5;
+		      visited_11 = true;
+	      }
+	   }
+
+
+	   function takeItem(){
+	      switch(currLoc){
+		     case 9:
+			    if(taken_gravityDevice === false){
+				   taken_gravityDevice = true;
+				   dispmsg("You picked up the Artificial Gravity Device!");
+				   inventoryList+="Artificial Gravity Device\n"
+			    } else {
+			      dispmsg("There is nothing here to take!");
+			    }
+			    break;
+		     case 5:
+			    if(taken_shield === false){
+				   taken_shield = true;
+				   dispmsg("You picked up the Asteroid Shield!");
+				   inventoryList+="Asteroid Shield\n"
+			    } else {
+			      dispmsg("There is nothing here to take!");
+			    }
+			    break;
+		     case 7:
+			    if(taken_phaser === false){
+				   taken_phaser = true;
+				   dispmsg("You picked up the Phaser!");
+				   inventoryList+="Phaser\n"
+			    } else {
+			      dispmsg("There is nothing here to take!");
+			    }
+			    break;
+		     default:
+			    dispmsg("There is nothing here to take!");
+	      }
+	   }
+
+
+	   //Utility functions
+	   function dispmsg(msg){
+	      var target = document.getElementById("taMain");
+	      target.value = msg +"\n\n" + target.value;
+	   }  
+
+	   function txtCommand_keyPress(keyboardEvent){
+	      if (keyboardEvent.which === 13) {
+		     btnGo_click();
+	      }
+	   }
+
+	   function buttonDisable(){
+	      switch(currLoc){
+		     case 0:
+			    document.getElementById("btn_North").disabled=false;
+			    document.getElementById("btn_South").disabled=false;
+			    document.getElementById("btn_East").disabled=false;
+			    document.getElementById("btn_West").disabled=false; 
+			    break;
+		     case 1:
+			    document.getElementById("btn_North").disabled=false;
+			    document.getElementById("btn_South").disabled=false;
+			    document.getElementById("btn_East").disabled=true;
+			    document.getElementById("btn_West").disabled=true; 
+			    break;
+		     case 2:
+			    document.getElementById("btn_North").disabled=true;
+			    document.getElementById("btn_South").disabled=true;
+			    document.getElementById("btn_East").disabled=false;
+			    document.getElementById("btn_West").disabled=true; 
+			    break;
+		     case 3:
+			    document.getElementById("btn_North").disabled=false;
+			    document.getElementById("btn_South").disabled=true;
+			    document.getElementById("btn_East").disabled=false;
+			    document.getElementById("btn_West").disabled=true; 
+		 	    break;
+		     case 4:
+			    document.getElementById("btn_North").disabled=true;
+			    document.getElementById("btn_South").disabled=false;
+			    document.getElementById("btn_East").disabled=true;
+			    document.getElementById("btn_West").disabled=false; 
+			    break;
+		     case 5:
+			    document.getElementById("btn_North").disabled=false;
+			    document.getElementById("btn_South").disabled=true;
+			    document.getElementById("btn_East").disabled=true;
+			    document.getElementById("btn_West").disabled=false; 
+			    break;
+		     case 6:
+			    document.getElementById("btn_North").disabled=true;
+			    document.getElementById("btn_South").disabled=false;
+			    document.getElementById("btn_East").disabled=false;
+			    document.getElementById("btn_West").disabled=false; 
+			    break;
+		     case 7:
+			    document.getElementById("btn_North").disabled=true;
+			    document.getElementById("btn_South").disabled=true;
+			    document.getElementById("btn_East").disabled=false;
+			    document.getElementById("btn_West").disabled=true; 
+			    break;
+		     case 8:
+			    document.getElementById("btn_North").disabled=false;
+			    document.getElementById("btn_South").disabled=true;
+			    document.getElementById("btn_East").disabled=false;
+			    document.getElementById("btn_West").disabled=false; 
+			    break;
+		     case 9:
+			    document.getElementById("btn_North").disabled=true;
+			    document.getElementById("btn_South").disabled=false;
+			    document.getElementById("btn_East").disabled=true;
+			    document.getElementById("btn_West").disabled=true; 
+			    break;
+		     case 10:
+			    document.getElementById("btn_North").disabled=true;
+			    document.getElementById("btn_South").disabled=false;
+			    document.getElementById("btn_East").disabled=true;
+			    document.getElementById("btn_West").disabled=false; 
+			    break;
+		     case 11:
+			    document.getElementById("btn_North").disabled=false;
+			    document.getElementById("btn_South").disabled=true;
+			    document.getElementById("btn_East").disabled=true;
+			    document.getElementById("btn_West").disabled=true; 
+			    break;
+	      }
+  	   }
+</script>
    </head>
    <body onload="init();">
        <table>
@@ -34,6 +413,7 @@
                 <input type="text"
                        id = "txtCommand"
                        name="txtCommand"
+                       placeholder="Enter Naviagtion Here!"
                        onkeypress="txtCommand_keyPress(event);">
        
                 <input type="button"
@@ -44,18 +424,22 @@
                 <br>
                 <input type="button" 
                        value="North"
-                       onclick="goNorth();" />
+                       id="btn_North"
+                       onclick="goNorth()" />
   
                 <input type="button"
                        value="South"
+                       id="btn_South"
                        onclick="goSouth()" />
        
                 <input type="button"
                        value="East"
+                       id="btn_East"
                        onclick="goEast()" />
 
                 <input type="button"
                        value="West"
+                       id="btn_West"
                        onclick="goWest()" />
 
                 <br>
