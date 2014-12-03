@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- Eleanor J. Downie
-     October 29, 2014
+     December 3, 2014
      Introduction to Programming
-     Project 4- Game v0.6 -->
+     Project 5- Game v0.8 -->
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -20,22 +20,22 @@
 	   var score = 0; 
 		  
 	   //Variables for Scorekeeping
-	   var visited_0  = false;
-	   var visited_1  = false;
-	   var visited_2  = false;
-	   var visited_3  = false;
-	   var visited_4  = false;
-	   var visited_5  = false;
-	   var visited_6  = false;
-	   var visited_7  = false;
-	   var visited_8  = false;
-	   var visited_9  = false;
-	   var visited_10 = false;
-	   var visited_11 = false;
+	   var visited0_spaceStation = false;
+	   var visited1_icePlanet = false;
+	   var visited2_waterPlanet = false;
+	   var visited3_firePlanet = false;
+	   var visited4_junglePlanet = false;
+	   var visited5_cloudPlanet = false;
+	   var visited6_diamondPlanet = false;
+	   var visited7_desertPlanet = false;
+	   var visited8_asteroidBelt = false;
+	   var visited9_metalPlanet = false;
+	   var visited10_gravityPlanet = false;
+	   var visited11_earthPlanet = false;
 	   var taken_gravityDevice = false;
 	   var taken_shield = false;
 	   var taken_phaser = false;
-	   var inventoryList ="Inventory:\n";
+	   var inventoryList = "Inventory:\n";
 
 	   //Initialization
 	   function init(){
@@ -229,40 +229,40 @@
 	   function completeScore(){
 	      var targetScoreArea = document.getElementById("scoreArea");
 	      targetScoreArea.value = score;
-	      if ((! visited_0) && (currLoc === 0)){
+	      if ((! visited0_spaceStation) && (currLoc === 0)){
 		      score = score + 5;
 		      visited_0 = true;
-	      } else if ((! visited_1) && (currLoc === 1)) {
+	      } else if ((! visited1_icePlanet) && (currLoc === 1)) {
 		      score = score + 5;
 		      visited_1 = true;
-	      } else if ((! visited_2) && (currLoc === 2)) {
+	      } else if ((! visited2_waterPlanet) && (currLoc === 2)) {
 		      score = score + 5;
 		      visited_2 = true;
-	      } else if ((! visited_3) && (currLoc === 3)) {
+	      } else if ((! visited3_firePlanet) && (currLoc === 3)) {
 		      score = score + 5;
 		      visited_3 = true;
-	      } else if ((! visited_4) && (currLoc === 4)) {
+	      } else if ((! visited4_junglePlanet) && (currLoc === 4)) {
 		      score = score + 5;
 		      visited_4 = true;
-	      } else if ((! visited_5) && (currLoc === 5)) {
+	      } else if ((! visited5_cloudPlanet) && (currLoc === 5)) {
 		      score = score + 5;
 		      visited_5 = true;
-	      } else if ((! visited_6) && (currLoc === 6)) {
+	      } else if ((! visited6_diamondPlanet) && (currLoc === 6)) {
 		      score = score + 5;
 		      visited_6 = true;
-	      } else if ((! visited_7) && (currLoc === 7)) {
+	      } else if ((! visited7_desertPlanet) && (currLoc === 7)) {
 		      score = score + 5;
 		      visited_7 = true;
-	      } else if ((! visited_8) && (currLoc === 8)) {
+	      } else if ((! visited8_asteroidBelt) && (currLoc === 8)) {
 		      score = score + 5;
 		      visited_8 = true;
-	      } else if ((! visited_9) && (currLoc === 9)) {
+	      } else if ((! visited9_metalPlanet) && (currLoc === 9)) {
 		      score = score + 5;
 		      visited_9 = true;
-	      } else if ((! visited_10) && (currLoc === 10)) {
+	      } else if ((! visited10_gravityPlanet) && (currLoc === 10)) {
 		      score = score + 5;
 		      visited_10 = true;
-	      } else if ((! visited_11) && (currLoc === 11)) {
+	      } else if ((! visited11_earthPlanet) && (currLoc === 11)) {
 		      score = score + 5;
 		      visited_11 = true;
 	      }
