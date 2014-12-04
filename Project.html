@@ -15,11 +15,31 @@
    </style>   
    <script type="text/javascript" src="GameLocations.js"></script>
    <script type="text/javascript">
-	   //Global Variables
+	   //Location Array
+       var planetLoc = new Array()
+                       planetLoc[0]= spaceStation,
+                       planetLoc[1]= icePlanet,
+                       planetLoc[2]= waterPlanet,
+                       planetLoc[3]= firePlanet,
+                       planetLoc[4]= junglePlanet,
+                       planetLoc[5]= cloudPlanet,
+                       planetLoc[6]= diamondPlanet,
+                       planetLoc[7]= desertPlanet,
+                       planetLoc[8]= asteroidBelt,
+                       planetLoc[9]= metalPlanet,
+                       planetLoc[10]= gravityPlanet,
+                       planetLoc[11]= earthPlanet;
+
+
+       //Game Global Variables
 	   var currLoc = 0;  
-	   var score = 0; 
-		  
-	   //Variables for Scorekeeping
+	   var score = 0; 	   
+       var taken_gravityDevice = false;
+	   var taken_shield = false;
+	   var taken_phaser = false;
+	   var inventoryList = "Inventory:\n";
+	   
+       //Variables for Scorekeeping
 	   var visited0_spaceStation = false;
 	   var visited1_icePlanet = false;
 	   var visited2_waterPlanet = false;
@@ -32,10 +52,6 @@
 	   var visited9_metalPlanet = false;
 	   var visited10_gravityPlanet = false;
 	   var visited11_earthPlanet = false;
-	   var taken_gravityDevice = false;
-	   var taken_shield = false;
-	   var taken_phaser = false;
-	   var inventoryList = "Inventory:\n";
 
 	   //Initialization
 	   function init(){
@@ -202,7 +218,7 @@
 
 	   //Story Functions
 	   function look(){ 
-	      var desc = "";
+          var desc = "";
 	      switch(currLoc) {
 		     case 0:  desc  = spaceStation();  break;
 		     case 1:  desc  = icePlanet();     break;
