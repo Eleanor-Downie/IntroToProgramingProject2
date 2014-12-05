@@ -30,14 +30,20 @@
                        planetLoc[10]= gravityPlanet,
                        planetLoc[11]= earthPlanet;
 
+       //Items Array
+       var items = new Array()
+                   items[9]=gravityDevice;
+                   items[5]=shield;
+                   items[7]=phaser;
+                   items[11]=betterShip;
+
+       //For Inventory to Work
+       var inventory = new Array();
 
        //Game Global Variables
 	   var currLoc = 0;  
-	   var score = 0; 	   
-       var taken_gravityDevice = false;
-	   var taken_shield = false;
-	   var taken_phaser = false;
-	   var inventoryList = "Inventory:\n";
+	   var score = 5; 	   
+
 	   
        //Variables for Scorekeeping
 	   var visited0_spaceStation = false;
@@ -52,43 +58,46 @@
 	   var visited9_metalPlanet = false;
 	   var visited10_gravityPlanet = false;
 	   var visited11_earthPlanet = false;
-
+       
 	   //Initialization
-	   function init(){
-	      look();
-	   }
+       function init(){
+       dispmsg(planetLoc[currLoc].description);
+       }
 
+       function determineLocation(){
+          if(planetLoc[currLoc].hasItem===true && items[currLoc].isTaken===false){
+             dispmsg(planetLoc[currLoc].description+items[currLoc].description);
+          } else {
+              dispmsg(planetLoc[currLoc].description);
+            }
+       }
 	   //Directional Functions
 	   function goNorth(){ 
 	      switch(currLoc){
 		     case 3:
 			    currLoc=0;
-			    look();
 			    break;
 		     case 0:
 			    currLoc=1;
-			    look();
 			    break;
 		     case 5:
 			    currLoc=4;
-			    look();
 			    break;
 		     case 1:
 			    currLoc=6;
-			    look();
 			    break;
 		     case 8:
 			    currLoc=9;
-			    look();
 			    break;
 		     case 11:
 			    currLoc=10;
-			    look();
 			    break;
 		     default:
 			    navigationError();
 	      }
-	     buttonDisable();
+         determineLocation();
+         buttonDisable();
+         completeScore();
 	   }
 
 				  
@@ -96,32 +105,28 @@
 	      switch(currLoc){
 		     case 1:
 			    currLoc=0;
-			    look();
 			    break;
 		     case 0:
 			    currLoc=3;
-			    look();
 			    break;
 		     case 4:
 			    currLoc=5;
-			    look();
 			    break;
 		     case 6:
 			    currLoc=1;
-			    look();
 			    break;
 		     case 9:
 			    currLoc=8;
-			    look();
 			    break;
 		     case 10:
 			    currLoc=11;
-			    look();
 			    break;
 		     default:
 			    navigationError();
 	      }
-	     buttonDisable();
+         determineLocation();
+         buttonDisable();
+         completeScore();
 	   }
 
 
@@ -129,32 +134,28 @@
 	      switch(currLoc){
 		     case 2:
 			    currLoc=0;
-			    look();
 			    break;
 		     case 0:
 			    currLoc=4;
-			    look();
 			    break;
 		     case 3:
 			    currLoc=5;
-			    look();
 			    break;
 		     case 7:
 			    currLoc=6;
-			    look();
 			    break;
 		     case 6:
 			    currLoc=8;
-			    look();
 			    break;
 		     case 8:
 			    currLoc=10;
-			    look();
 			    break;
 		     default:
 			    navigationError();
 	      }
-	     buttonDisable();
+         determineLocation();
+         buttonDisable();
+         completeScore();
 	   }  
 
 
@@ -162,32 +163,28 @@
 	      switch(currLoc){
 		     case 4:
 			    currLoc=0;
-			    look();
 			    break;
 		     case 0:
 			    currLoc=2;
-			    look();
 			    break;
 		     case 5:
 			    currLoc=3;
-			    look();
 			    break;
 		     case 10:
 			    currLoc=8;
-			    look();
 			    break;
 		     case 8:
 			    currLoc=6;
-			    look();
 			    break;
 		     case 6:
 			    currLoc=7;
-			    look();
 			    break;
 		     default:
 			    navigationError();
 	      }
-	     buttonDisable();
+         determineLocation();
+         buttonDisable();
+         completeScore();
 	   }  
 	  
 
@@ -209,7 +206,7 @@
 			      break;
 		     case 'TAKE': takeItem();
 			      break;
-		     case 'INVENTORY': dispmsg(inventoryList);
+		     case 'INVENTORY': dispmsg("Inventory:\n"+inventory);
 			      break;
 		     default: dispmsg("You cannot use that command. You may only use: N, S, E, or W.");
 	      }   
@@ -217,26 +214,6 @@
 
 
 	   //Story Functions
-	   function look(){ 
-          var desc = "";
-	      switch(currLoc) {
-		     case 0:  desc  = spaceStation();  break;
-		     case 1:  desc  = icePlanet();     break;
-		     case 2:  desc  = waterPlanet();   break;
-		     case 3:  desc  = firePlanet();    break;
-		     case 4:  desc  = junglePlanet();  break;
-		     case 5:  desc  = cloudPlanet();   break;
-		     case 6:  desc  = diamondPlanet(); break;
-		     case 7:  desc  = desertPlanet();  break;
-		     case 8:  desc  = asteroidBelt();  break;
-		     case 9:  desc  = metalPlanet();   break;
-		     case 10: desc  = gravityPlanet(); break;
-		     case 11: desc  = earthPlanet();   break; 
-		     default: desc  = "This part of space is not yet explorable.";
-	      }
-	   }
-
-
 	   function navigationError(){
 	      dispmsg("This part of space is not yet explorable.");
 	   }
@@ -285,39 +262,15 @@
 	   }
 
 
-	   function takeItem(){
-	      switch(currLoc){
-		     case 9:
-			    if(taken_gravityDevice === false){
-				   taken_gravityDevice = true;
-				   dispmsg("You picked up the Artificial Gravity Device!");
-				   inventoryList+="Artificial Gravity Device\n"
-			    } else {
-			      dispmsg("There is nothing here to take!");
-			    }
-			    break;
-		     case 5:
-			    if(taken_shield === false){
-				   taken_shield = true;
-				   dispmsg("You picked up the Asteroid Shield!");
-				   inventoryList+="Asteroid Shield\n"
-			    } else {
-			      dispmsg("There is nothing here to take!");
-			    }
-			    break;
-		     case 7:
-			    if(taken_phaser === false){
-				   taken_phaser = true;
-				   dispmsg("You picked up the Phaser!");
-				   inventoryList+="Phaser\n"
-			    } else {
-			      dispmsg("There is nothing here to take!");
-			    }
-			    break;
-		     default:
-			    dispmsg("There is nothing here to take!");
-	      }
-	   }
+       function takeItem(){
+          if(items[currLoc].isTaken===false && planetLoc[currLoc].hasItem===true){
+             inventory.push(items[currLoc].name);
+             items[currLoc].isTaken=true;
+             dispmsg("You took the " + items[currLoc].name);
+          } else {
+               dispmsg("There is nothing to take.");
+            }
+       }
 
 
 	   //Utility functions
@@ -461,7 +414,7 @@
                 <br>
                 <br>
                 Score:
-                <textarea rows="1" cols="5" id="scoreArea"></textarea>
+                <textarea rows="1" cols="5" id="scoreArea">0</textarea>
                 <br>
                 <br>
                 <a href="mailto:eleanor.downie1@marist.edu">Email Me Here!</a>

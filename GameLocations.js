@@ -6,6 +6,36 @@ function Location (id, name, description, hasItem) {
    this.hasItem = hasItem;
 }
 
+function Item (id, name, description, isTaken){
+   this.id = id;
+   this.name = name;
+   this.description = description;
+   this.isTaken = isTaken;
+}
+
+var gravityDevice = new Item();
+   gravityDevice.id = 9;
+   gravityDevice.name = "Gravity Device";
+   gravityDevice.description = " As you are leaving you see a vendor giving out Artificial Gravity Devices, they offer you one.";
+   gravityDevice.isTaken = false;
+
+var shield = new Item();
+   shield.id = 5;
+   shield.name = "Shield";
+   shield.description = " But before you leave you see an Asteroid Shield floating in the air.";
+   shield.isTaken = false;
+
+var phaser = new Item();
+   phaser.id = 7;
+   phaser.name = "Phaser";
+   phaser.description = " As you are leaving you see a phaser laying on the ground, possibly from the last explorer that was here...";
+   phaser.isTaken = false;
+
+var betterShip = new Item();
+   betterShip.id = 11;
+   betterShip.name = "Better Space Ship";
+   betterShip.description = " On this earth planet you find a better ship that is able to take you to more distant galaxies, take the ship and go forth where no man has gone before!!";
+   betterShip.isTaken = false; 
 
 var spaceStation = new Location();
    spaceStation.id = 0;
@@ -40,7 +70,7 @@ var junglePlanet = new Location();
 var cloudPlanet = new Location();
    cloudPlanet.id = 5;
    cloudPlanet.name = "Nebulous";
-   cloudPlanet.descripition = "You have soared to the planet of Nebulous. This planet is known for having little to no land mass, only clouds of diffenrent structures. Sadly you cannot land your ship and must move on. But before you leave you see an Asteroid Shield floating in the air.";
+   cloudPlanet.description = "You have soared to the planet of Nebulous. This planet is known for having little to no land mass, only clouds of diffenrent structures. Sadly you cannot land your ship and must move on.";
    cloudPlanet.hasItem = true;
 
 var diamondPlanet = new Location();
@@ -52,7 +82,7 @@ var diamondPlanet = new Location();
 var desertPlanet = new Location();
    desertPlanet.id = 7;
    desertPlanet.name = "Arrakis";
-   desertPlanet.description = "You have voyaged to the hot and sandy planet of Arrakis. This desert planet seems to be barren and just bearably hot, but the longer you stay to explore the more hidden creatures you find...until there are thousands of them. As you are leaving you see a phaser laying on the ground, possibly from the last explorer that was here...";
+   desertPlanet.description = "You have voyaged to the hot and sandy planet of Arrakis. This desert planet seems to be barren and just bearably hot, but the longer you stay to explore the more hidden creatures you find...until there are thousands of them.";
    desertPlanet.hasItem = true;
    
 var asteroidBelt = new Location();
@@ -77,15 +107,4 @@ var earthPlanet = new Location();
    earthPlanet.id = 11;
    earthPlanet.name = "Unknown"
    earthPlanet.description = "You have soared to an unknown planet that is very similar to the planet Earth. You are the first to discover this new planet!";
-   earthPlanet.hasItem = false;
-
-
-
-
-	  
-	  //var desc = "You have soared to the planet of Nebulous. This planet is known for having little to no land mass, only clouds of diffenrent structures. Sadly you cannot land your ship and must move on.";
-
-	  //var desc = "You have voyaged to the hot and sandy planet of Arrakis. This desert planet seems to be barren and just bearably hot, but the longer you stay to explore the more hidden creatures you find...until there are thousands of them.";  
-
-      //var desc = "You have made it out of the Attarii Belt with slight damage to your ship! Luckly you landed on the Planet Ore. Ore is an all metal planet that is used by many to supply their planets with metal. You fix your ship and head off once more.";
-
+   earthPlanet.hasItem = true;
