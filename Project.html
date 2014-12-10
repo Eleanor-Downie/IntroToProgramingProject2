@@ -42,9 +42,8 @@
 
        //Game Global Variables
 	   var currLoc = 0;  
-	   var score = 5; 	   
-
-	   
+	   var score = 5; 
+          
        //Variables for Scorekeeping
 	   var visited0_spaceStation = false;
 	   var visited1_icePlanet = false;
@@ -64,6 +63,7 @@
        dispmsg(planetLoc[currLoc].description);
        }
 
+       //Changes to descriptions when items are taken or if there is no item
        function determineLocation(){
           if(planetLoc[currLoc].hasItem===true && items[currLoc].isTaken===false){
              dispmsg(planetLoc[currLoc].description+items[currLoc].description);
@@ -72,152 +72,70 @@
             }
        }
 	   //Directional Functions
-	   function goNorth(){ 
-	      switch(currLoc){
-		     case 3:
-			    currLoc=0;
-			    break;
-		     case 0:
-			    currLoc=1;
-			    break;
-		     case 5:
-			    currLoc=4;
-			    break;
-		     case 1:
-			    currLoc=6;
-			    break;
-		     case 8:
-			    currLoc=9;
-			    break;
-		     case 11:
-			    currLoc=10;
-			    break;
-		     default:
-			    navigationError();
-	      }
-         determineLocation();
-         buttonDisable();
-         completeScore();
-	   }
+       //Global Variables for my navigation
+       var NORTH = 0;
+       var SOUTH = 1;
+       var EAST  = 2;
+       var WEST  = 3;
 
-				  
-	   function goSouth(){                
-	      switch(currLoc){
-		     case 1:
-			    currLoc=0;
-			    break;
-		     case 0:
-			    currLoc=3;
-			    break;
-		     case 4:
-			    currLoc=5;
-			    break;
-		     case 6:
-			    currLoc=1;
-			    break;
-		     case 9:
-			    currLoc=8;
-			    break;
-		     case 10:
-			    currLoc=11;
-			    break;
-		     default:
-			    navigationError();
-	      }
-         determineLocation();
-         buttonDisable();
-         completeScore();
-	   }
+       var nav = new Array(//           0      1      2      3 
+                           /*0*/  [1,  3,  4,  2],
+                           /*1*/  [ 6, 0, -1, -1],
+                           /*2*/  [-1, -1, 0, -1],
+                           /*3*/  [ 0, -1, 5, -1],
+                           /*4*/  [-1,  5, -1, 0],
+                           /*5*/  [ 4, -1, -1, 3],
+                           /*6*/  [-1, 1,  8,  7],
+                           /*7*/  [-1, -1, 6, -1],
+                           /*8*/  [ 9, -1, 10, 6],
+                           /*9*/  [-1, 8, -1, -1],
+                           /*10*/ [-1, 11, -1, 8],
+                           /*11*/ [10, -1, -1, -1]
+                           );
+       
+       var navButtons = new Array ("btn_North", "btn_South", "btn_East", "btn_West");
 
+       function btnNorth_click(){
+          nextLoc(NORTH);
+          determineLocation();
+          buttonDisable();
+          completeScore();
+       }
 
-	   function goEast(){                
-	      switch(currLoc){
-		     case 2:
-			    currLoc=0;
-			    break;
-		     case 0:
-			    currLoc=4;
-			    break;
-		     case 3:
-			    currLoc=5;
-			    break;
-		     case 7:
-			    currLoc=6;
-			    break;
-		     case 6:
-			    currLoc=8;
-			    break;
-		     case 8:
-			    currLoc=10;
-			    break;
-		     default:
-			    navigationError();
-	      }
-         determineLocation();
-         buttonDisable();
-         completeScore();
-	   }  
+       function btnSouth_click(){
+          nextLoc(SOUTH);
+          determineLocation();
+          buttonDisable();
+          completeScore();
+       }
 
+       function btnEast_click(){
+          nextLoc(EAST);
+          determineLocation();
+          buttonDisable();
+          completeScore();
+       }
 
-	   function goWest(){                
-	      switch(currLoc){
-		     case 4:
-			    currLoc=0;
-			    break;
-		     case 0:
-			    currLoc=2;
-			    break;
-		     case 5:
-			    currLoc=3;
-			    break;
-		     case 10:
-			    currLoc=8;
-			    break;
-		     case 8:
-			    currLoc=6;
-			    break;
-		     case 6:
-			    currLoc=7;
-			    break;
-		     default:
-			    navigationError();
-	      }
-         determineLocation();
-         buttonDisable();
-         completeScore();
-	   }  
-	  
+       function btnWest_click(){
+          nextLoc(WEST);
+          determineLocation();
+          buttonDisable();
+          completeScore();
+       }
+
+       function nextLoc(dir){
+          var newLoc = nav[currLoc][dir];
+          if (newLoc >= 0){
+             currLoc = newLoc;
+          } else {
+               dispmsg("This part of space is not yet explorable!");
+            }
+       }
 
 	   //Commandbox Directional Functions
-	   function btnGo_click(){
-	      var userDirection = document.getElementById("txtCommand").value;
-	      userDirection = userDirection.trim();
-	      userDirection = userDirection.toUpperCase();
-	      switch(userDirection){
-		     case 'N': goNorth();
-			      break;
-		     case 'S': goSouth();
-			      break;
-	   	     case 'E': goEast();
-			      break;
-		     case 'W': goWest();
-			      break;  
-	   	     case 'HELP': dispmsg("You may use the directional buttons below to move, or type N, S, E, or W into the command bar.");
-			      break;
-		     case 'TAKE': takeItem();
-			      break;
-		     case 'INVENTORY': dispmsg("Inventory:\n"+inventory);
-			      break;
-		     default: dispmsg("You cannot use that command. You may only use: N, S, E, or W.");
-	      }   
-	   }
 
 
 	   //Story Functions
-	   function navigationError(){
-	      dispmsg("This part of space is not yet explorable.");
-	   }
-
 
 	   function completeScore(){
 	      var targetScoreArea = document.getElementById("scoreArea");
@@ -394,22 +312,22 @@
                 <input type="button" 
                        value="North"
                        id="btn_North"
-                       onclick="goNorth()" />
+                       onclick="btnNorth_click()" />
   
                 <input type="button"
                        value="South"
                        id="btn_South"
-                       onclick="goSouth()" />
+                       onclick="btnSouth_click()" />
        
                 <input type="button"
                        value="East"
                        id="btn_East"
-                       onclick="goEast()" />
+                       onclick="btnEast_click()" />
 
                 <input type="button"
                        value="West"
                        id="btn_West"
-                       onclick="goWest()" />
+                       onclick="btnWest_click()" />
 
                 <br>
                 <br>
