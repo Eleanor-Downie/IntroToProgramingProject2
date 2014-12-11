@@ -4,11 +4,13 @@ function Location (id, name, description, hasItem) {
    this.name = name;
    this.description = description;
    this.hasItem = hasItem;
+   this.item = function(){
       if(this.hasItem && planetLoc[nextLoc]){
-         return items[nextLoc];
+         return items[nextLoc].description;
       } else {
           return "";
         }
+   }
    this.toString = function locationToString(){
       var returnVal = "";
       returnVal = this.discription + " " + this.item();

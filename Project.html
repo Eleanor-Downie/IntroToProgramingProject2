@@ -111,10 +111,9 @@
        function newLoc(dir){
           var nextLoc = nav[currLoc][dir];
           if (nextLoc >= 0){
-             currLoc = nextLoc;
-             dispmsg(planetLoc[currLoc].description);
+			 currLoc = nextLoc;
              completeScore();
-             itemCheck();
+             itemCheck(currLoc);
           } else {
                dispmsg("This part of space is not yet explorable!");
             }
@@ -148,24 +147,23 @@
 	   //Story Functions
 
        //Puzzle Aspect of the Game
-       function itemCheck(nextLoc){
-          if(nextLoc === 8){ 
-             if(itemShield.isTaken){
-                dispmsg(planetLoc[nextloc]);
-                currLoc = nextLoc
+       function itemCheck(currLoc){
+          if(currLoc === 8){ 
+             if(shield.isTaken===false){
+                dispmsg(planetLoc[currLoc].description + items[currLoc].description);
+                currLoc = nextLoc;
              } else {
                  dispmsg("You attempted to fly into the Attarii Asteriod Belt but your ship would be destroyed without an asteroid shield.");
                } 
-           } else if(nextLoc === 10){ 
-               if(itemGravityDevice.isTaken){
-                  dispmsg(planetLoc[nextloc]);
-                  currLoc = nextLoc
+           } else if(currLoc === 10){ 
+               if(gravityDevice.isTaken===false){
+                  dispmsg(planetLoc[currLoc] + items[currLoc].description);
+                  currLoc = nextLoc;
                } else {
                    dispmsg("You cannot go to Perfusorius on the accout that you have no gravity device to allow you to land!");
                  }
            } else {
-               dispmsg(planetLoc[nextLoc]);
-               currLoc = nextLoc;
+               dispmsg(planetLoc[currLoc].description);
              }
        } 
 
