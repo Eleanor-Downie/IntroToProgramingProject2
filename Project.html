@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- Eleanor J. Downie
-     December 3, 2014
+     December 9, 2014
      Introduction to Programming
-     Project 5- Game v0.8 -->
+     FINAL PROJECT!- Game v1.0 -->
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -16,26 +16,14 @@
    <script type="text/javascript" src="GameLocations.js"></script>
    <script type="text/javascript">
 	   //Location Array
-       var planetLoc = new Array()
-                       planetLoc[0]= spaceStation,
-                       planetLoc[1]= icePlanet,
-                       planetLoc[2]= waterPlanet,
-                       planetLoc[3]= firePlanet,
-                       planetLoc[4]= junglePlanet,
-                       planetLoc[5]= cloudPlanet,
-                       planetLoc[6]= diamondPlanet,
-                       planetLoc[7]= desertPlanet,
-                       planetLoc[8]= asteroidBelt,
-                       planetLoc[9]= metalPlanet,
-                       planetLoc[10]= gravityPlanet,
-                       planetLoc[11]= earthPlanet;
+       var planetLoc = new Array();
 
        //Items Array
-       var items = new Array()
-                   items[9]=gravityDevice;
-                   items[5]=shield;
-                   items[7]=phaser;
-                   items[11]=betterShip;
+       var items = new Array();
+	              items[9]=gravityDevice;
+	              items[5]=shield;
+	              items[7]=phaser;
+	              items[11]=betterShip;
 
        //For Inventory to Work
        var inventory = new Array();
@@ -60,13 +48,14 @@
        
 	   //Initialization
        function init(){
+       locationsInit();
        dispmsg(planetLoc[currLoc].description);
        }
 
        //Changes to descriptions when items are taken or if there is no item
        function determineLocation(){
-          if(planetLoc[currLoc].hasItem===true && items[currLoc].isTaken===false){
-             dispmsg(planetLoc[currLoc].description+items[currLoc].description);
+          if(planetLoc[currLoc].hasItem === true && items[currLoc].isTaken === false){
+             dispmsg(planetLoc[currLoc].description + items[currLoc].description);
           } else {
               dispmsg(planetLoc[currLoc].description);
             }
@@ -96,46 +85,99 @@
        var navButtons = new Array ("btn_North", "btn_South", "btn_East", "btn_West");
 
        function btnNorth_click(){
-          nextLoc(NORTH);
-          determineLocation();
+          newLoc(NORTH);
           buttonDisable();
           completeScore();
        }
 
        function btnSouth_click(){
-          nextLoc(SOUTH);
-          determineLocation();
+          newLoc(SOUTH);
           buttonDisable();
           completeScore();
        }
 
        function btnEast_click(){
-          nextLoc(EAST);
-          determineLocation();
+          newLoc(EAST);
           buttonDisable();
           completeScore();
        }
 
        function btnWest_click(){
-          nextLoc(WEST);
-          determineLocation();
+          newLoc(WEST);
           buttonDisable();
           completeScore();
        }
 
-       function nextLoc(dir){
-          var newLoc = nav[currLoc][dir];
-          if (newLoc >= 0){
-             currLoc = newLoc;
+       function newLoc(dir){
+          var nextLoc = nav[currLoc][dir];
+          if (nextLoc >= 0){
+             currLoc = nextLoc;
+             dispmsg(planetLoc[currLoc].description);
+             completeScore();
+             itemCheck();
           } else {
                dispmsg("This part of space is not yet explorable!");
             }
        }
 
 	   //Commandbox Directional Functions
+       function btnGo_click(){
+	      var userDirection = document.getElementById("txtCommand").value;
+	      userDirection = userDirection.trim();
+	      userDirection = userDirection.toUpperCase();
+	      switch(userDirection){
+		     case 'N': btnNorth_click();
+			      break;
+		     case 'S': btnSouth_click();
+			      break;
+	   	     case 'E': btnEast_click();
+			      break;
+		     case 'W': btnWest_click();
+			      break;  
+	   	     case 'HELP': help();
+			      break;
+		     case 'TAKE': takeItem();
+			      break;
+		     case 'INVENTORY': displayInventory();
+			      break;
+		     default: dispmsg("You cannot use that command. You may only use: N, S, E, W,n, s, e, or w.");
+	      }   
+	   }
 
 
 	   //Story Functions
+
+       //Puzzle Aspect of the Game
+       function itemCheck(nextLoc){
+          if(nextLoc === 8){ 
+             if(itemShield.isTaken){
+                dispmsg(planetLoc[nextloc]);
+                currLoc = nextLoc
+             } else {
+                 dispmsg("You attempted to fly into the Attarii Asteriod Belt but your ship would be destroyed without an asteroid shield.");
+               } 
+           } else if(nextLoc === 10){ 
+               if(itemGravityDevice.isTaken){
+                  dispmsg(planetLoc[nextloc]);
+                  currLoc = nextLoc
+               } else {
+                   dispmsg("You cannot go to Perfusorius on the accout that you have no gravity device to allow you to land!");
+                 }
+           } else {
+               dispmsg(planetLoc[nextLoc]);
+               currLoc = nextLoc;
+             }
+       } 
+
+
+       function help(){
+          dispmsg("Use the directional buttons to move throughout the galaxy! Or you can type 'N, S, E, W, n, s, e, or w,' into the command bar. You may take items by typing 'take', and you may see your inventory my typing 'inventory'. You need certain items to get to the final location of the Unkown Planet and to win the game, so strategize and have fun!"); 
+       }
+
+       function displayInventory(){
+          var msg = "Inventory:" + inventory;
+          dispmsg(msg);
+       }
 
 	   function completeScore(){
 	      var targetScoreArea = document.getElementById("scoreArea");
@@ -202,7 +244,9 @@
 		     btnGo_click();
 	      }
 	   }
+   
 
+       //Disabling of the Navigation buttons     
 	   function buttonDisable(){
 	      switch(currLoc){
 		     case 0:
