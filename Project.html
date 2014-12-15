@@ -87,25 +87,21 @@
        function btnNorth_click(){
           newLoc(NORTH);
           buttonDisable();
-          completeScore();
        }
 
        function btnSouth_click(){
           newLoc(SOUTH);
           buttonDisable();
-          completeScore();
        }
 
        function btnEast_click(){
           newLoc(EAST);
           buttonDisable();
-          completeScore();
        }
 
        function btnWest_click(){
           newLoc(WEST);
           buttonDisable();
-          completeScore();
        }
 
        function newLoc(dir){
@@ -149,15 +145,15 @@
        //Puzzle Aspect of the Game
        function itemCheck(currLoc){
           if(currLoc === 8){ 
-             if(shield.isTaken===false){
-                dispmsg(planetLoc[currLoc].description + items[currLoc].description);
+             if(shield.isTaken===true){
+                dispmsg(planetLoc[currLoc].description);
                 currLoc = nextLoc;
              } else {
                  dispmsg("You attempted to fly into the Attarii Asteriod Belt but your ship would be destroyed without an asteroid shield.");
                } 
            } else if(currLoc === 10){ 
-               if(gravityDevice.isTaken===false){
-                  dispmsg(planetLoc[currLoc] + items[currLoc].description);
+               if(gravityDevice.isTaken===true){
+                  dispmsg(planetLoc[currLoc].description);
                   currLoc = nextLoc;
                } else {
                    dispmsg("You cannot go to Perfusorius on the accout that you have no gravity device to allow you to land!");
@@ -169,7 +165,7 @@
 
 
        function help(){
-          dispmsg("Use the directional buttons to move throughout the galaxy! Or you can type 'N, S, E, W, n, s, e, or w,' into the command bar. You may take items by typing 'take', and you may see your inventory my typing 'inventory'. You need certain items to get to the final location of the Unkown Planet and to win the game, so strategize and have fun!"); 
+          dispmsg("Use the directional buttons to move throughout the galaxy! Or you can type 'N, S, E, W, n, s, e, or w,' into the command bar. You may take items by typing 'take', and you may see your inventory my typing 'inventory'. You need certain items to get to the final location of the Unkown Planet and to win the game, so strategize and have fun! By the way the items are hidden so you must know what location you are in and where the items are to get them!"); 
        }
 
        function displayInventory(){
